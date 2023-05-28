@@ -43,7 +43,7 @@ def main():
     #upload a PDF file
     pdf = st.file_uploader("Upload your PDF file", type ='pdf')
     #st.write(pdf.name)
-    
+    #store_name = ""
     if pdf is not None:
         pdf_reader = PdfReader(pdf)
         st.write(pdf_reader)
@@ -64,8 +64,10 @@ def main():
         # st.write(file_path)
         
     #     #embedding
-    
-        store_name = pdf.name[:-4]
+        if pdf is None:
+            store_name = ""
+        else:
+            store_name = pdf.name[:-4]
         file_name = f"{store_name}.pkl"
         file_path = f"D:\OpenAI\Langchain\{store_name}.pkl"#+file_name
         #st.write(file_path)
@@ -82,23 +84,23 @@ def main():
             # st.write('Embeddings Loaded first time and  saved in disk')
 
              
-    #Accept user questions and query
-    query = st.text_input(f"Ask questions about your pdf file: {store_name}.pdf")
-    # st.write(query)     
+        #Accept user questions and query
+        query = st.text_input(f"Ask questions about your pdf file: {store_name}.pdf")
+        # st.write(query)     
 
-    if query:
-        #docs = VectorStore.similarity_search(query=query,k=5)  
-        retriever = VectorStore.as_retriever(search_type="similarity", search_kwargs={"k":4})
+        if query:
+            #docs = VectorStore.similarity_search(query=query,k=5)  
+            retriever = VectorStore.as_retriever(search_type="similarity", search_kwargs={"k":4})
 
-        llm = OpenAI()#model_name = 'gpt-3.5-turbo')
-        chain = RetrievalQA.from_chain_type(llm=llm, 
-                                            chain_type="stuff", 
-                                            retriever=retriever, 
-                                            return_source_documents=True)
-        with get_openai_callback() as cb:
-            response = chain(query)['result']
-            print(cb)
-        st.write(response)
+            llm = OpenAI()#model_name = 'gpt-3.5-turbo')
+            chain = RetrievalQA.from_chain_type(llm=llm, 
+                                                chain_type="stuff", 
+                                                retriever=retriever, 
+                                                return_source_documents=True)
+            with get_openai_callback() as cb:
+                response = chain(query)['result']
+                print(cb)
+            st.write(response)
 
            
            
