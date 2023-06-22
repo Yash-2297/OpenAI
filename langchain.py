@@ -15,7 +15,8 @@ import getpass
 from PyPDF2 import PdfReader
 
 
-os.environ['OPENAI_API_KEY'] = "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"
+os.environ['OPENAI_API_KEY'] = "API KEY
+"
 
 doc_reader =  PdfReader(r"D:\TUM\Thesis\Master Thesis\Literature\MKBHD - Google Docs.pdf")
 
