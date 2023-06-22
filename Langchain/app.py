@@ -19,7 +19,7 @@ from langchain.callbacks import get_openai_callback
 from langchain.chains import RetrievalQA
 
 #OPENAI API
-os.environ['OPENAI_API_KEY'] = "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"
+os.environ['OPENAI_API_KEY'] = "API KEY HERE"
 
 #Sidebar contetns
 
